@@ -43,6 +43,7 @@ function handleOnLoad() {
     const userDataFromStorage: unknown = userFromStorage?(JSON.parse(userFromStorage)):(undefined);
 
     if (isAnUserData(userDataFromStorage)) {
+        window.user = userDataFromStorage;
         if (form instanceof HTMLFormElement) {
             [...form.elements].filter((inputEle): inputEle is HTMLInputElement => {
                 return inputEle instanceof HTMLInputElement;
@@ -65,6 +66,7 @@ function handleKeyUp(e: Event) {
         const userInStorageExistAsObject = userDataInStorage && typeof userDataInStorage === 'object' && (!Array.isArray(userInStorage));
         const user: any = userInStorageExistAsObject ? (userDataInStorage) : {};
         user[input.name] = input.value;
+        window.user = user;
         localStorage.setItem('userData', JSON.stringify(user));
     }
 }
